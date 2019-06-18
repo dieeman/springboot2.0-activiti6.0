@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="vacationProcess" name="vacationProcess" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="applyVacation" name="请假申请"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="applyVacation"></sequenceFlow>
+    <exclusiveGateway id="daysgateway" name="daysgateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="applyVacation" targetRef="daysgateway"></sequenceFlow>
+    <userTask id="bmjl_audit" name="部门经理审批" activiti:assignee="${bmjl}"></userTask>
+    <sequenceFlow id="flow3" sourceRef="daysgateway" targetRef="bmjl_audit">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${days<=3}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="zjl_audit" name="总经理审批" activiti:assignee="${zjl}"></userTask>
+    <sequenceFlow id="flow4" sourceRef="daysgateway" targetRef="zjl_audit">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${days>3}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow5" sourceRef="bmjl_audit" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="zjl_audit" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_vacationProcess">
+    <bpmndi:BPMNPlane bpmnElement="vacationProcess" id="BPMNPlane_vacationProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="applyVacation" id="BPMNShape_applyVacation">
+        <omgdc:Bounds height="55.0" width="105.0" x="180.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="daysgateway" id="BPMNShape_daysgateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="330.0" y="258.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="bmjl_audit" id="BPMNShape_bmjl_audit">
+        <omgdc:Bounds height="55.0" width="105.0" x="440.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="zjl_audit" id="BPMNShape_zjl_audit">
+        <omgdc:Bounds height="55.0" width="105.0" x="450.0" y="350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="800.0" y="261.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="135.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="285.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="278.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="350.0" y="258.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="440.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="350.0" y="298.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="380.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="377.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="492.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="817.0" y="261.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="502.0" y="350.0"></omgdi:waypoint>
+        <omgdi:waypoint x="817.0" y="296.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
