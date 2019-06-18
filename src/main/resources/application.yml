@@ -11,8 +11,7 @@ spring:
       #启用activiti的身份关系
       check-process-definitions: true
       #bpmn文件所在位置
-      process-definition-location-prefix: classpath:/processes/
-      
+      process-definition-location-prefix: classpath:/processes/     
    datasource:
       url: jdbc:mysql://localhost:3306/activiti?useSSL=false
       driver-class-name: com.mysql.jdbc.Driver
